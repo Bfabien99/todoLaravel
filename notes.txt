@@ -1,0 +1,5 @@
+# TODO APP
+-- CRUD scoped to authorized user
+-- Send email notification
+---- Background Job
+-- Every day at midnight, schedule something
