@@ -6,31 +6,31 @@
         @method('PUT')
         <small>Edit a Todo</small>
         @if(session()->has('error'))
-        <p><span>x</span> {{session('error')}}</p>
+        <p class="text-red-400" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"><span>x</span> {{session('error')}}</p>
         @endif
         @if(session()->has('success'))
-        <p>{{session('success')}}</p>
+        <p class="text-green-500" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">{{session('success')}}</p>
         @endif
         <div>
             <label for="title">Title</label>
-            <input type="text" name="title" placeholder="Enter title" id="title" value="{{old('title', $todo->title)}}">
+            <input class="outline-none border p-2" type="text" name="title" placeholder="Enter title" id="title" value="{{old('title', $todo->title)}}">
             @error('title')
-                <p><span>x</span> {{$message}}</p>
+                <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
         </div>
         <div>
             <label for="detail">Detail</label>
-            <textarea name="detail" id="detail" placeholder="Some information about the Todo...">{{old('detail', $todo->detail)}}</textarea>
+            <textarea class="outline-none border p-2" name="detail" id="detail" placeholder="Some information about the Todo...">{{old('detail', $todo->detail)}}</textarea>
             @error('detail')
-                <p><span>x</span> {{$message}}</p>
+                <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
         </div>
         <div>
             <label for="limit_date">Limit Date</label>
-            <input type="date" name="limit_date" id="limit_date" value="{{old('limit_date', $todo->limit_date)}}">
+            <input class="outline-none border p-2" type="date" name="limit_date" id="limit_date" value="{{old('limit_date', $todo->limit_date)}}">
             @error('limit_date')
-                <p><span>x</span> {{$message}}</p>
+                <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
-        </div><button>Submit</button>
+        </div><button class="border rounded-sm p-2">Submit</button>
     </form>
 @endsection

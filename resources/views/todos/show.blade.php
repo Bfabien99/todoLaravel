@@ -4,10 +4,10 @@
 <div>
     <div>
     @if(session()->has('error'))
-        <p><span>x</span> {{session('error')}}</p>
+        <p class="text-red-400" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"><span>x</span> {{session('error')}}</p>
         @endif
         @if(session()->has('success'))
-        <p>{{session('success')}}</p>
+        <p class="text-green-500" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">{{session('success')}}</p>
         @endif
     </div>
     <h3>Detail</h3>
@@ -23,11 +23,11 @@
         </cite>
     </div>
     <div>
-        <a href="{{route('todos.edit', $todo)}}">Update</a>
+        <a class="hover:text-blue-400" href="{{route('todos.edit', $todo)}}">Update</a>
         <form action="{{route('todos.destroy', $todo)}}" method="post">
             @csrf
             @method('DELETE')
-            <button>Delete</button>
+            <button class="border rounded-sm p-2">Delete</button>
         </form>
     </div>
 </div>

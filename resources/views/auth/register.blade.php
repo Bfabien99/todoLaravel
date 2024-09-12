@@ -4,36 +4,36 @@
 <form action="" method="post">@csrf
         <small>Register to our page</small>
         @if(session()->has('error'))
-        <p><span>x</span> {{session('error')}}</p>
+        <p class="text-red-400" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"><span>x</span> {{session('error')}}</p>
         @endif
         @if(session()->has('success'))
-        <p>{{session('success')}}</p>
+        <p class="text-green-500" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">{{session('success')}}</p>
         @endif
         <div>
             <label for="name">Fullname</label>
-            <input type="text" name="name" placeholder="Enter fullname" id="name" value="{{old('name')}}">
+            <input class="outline-none border p-2" type="text" name="name" placeholder="Enter fullname" id="name" value="{{old('name')}}">
             @error('name')
-                <p><span>x</span> {{$message}}</p>
+                <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
         </div>
         <div>
             <label for="email">Email</label>
-            <input type="email" name="email" placeholder="Enter Email" id="email" value="{{old('email')}}">
+            <input class="outline-none border p-2" type="email" name="email" placeholder="Enter Email" id="email" value="{{old('email')}}">
             @error('email')
-                <p><span>x</span> {{$message}}</p>
+                <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Enter password" id="password">
+            <input class="outline-none border p-2" type="password" name="password" placeholder="Enter password" id="password">
             @error('password')
-                <p><span>x</span> {{$message}}</p>
+                <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
         </div>
         <div>
             <label for="cpassword">Password</label>
-            <input type="password" name="password_confirmation" placeholder="Enter password again" id="cpassword">
+            <input class="outline-none border p-2" type="password" name="password_confirmation" placeholder="Enter password again" id="cpassword">
         </div>
-        <button>Submit</button>
+        <button class="border rounded-sm p-2">Submit</button>
     </form>
 @endsection

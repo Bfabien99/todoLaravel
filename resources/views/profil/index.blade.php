@@ -11,19 +11,19 @@
         @method('PUT')
         <small>Edit Email</small>
         @if(session()->has('info-error'))
-            <p><span>x</span> {{session('info-error')}}</p>
+            <p class="text-red-400" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"><span>x</span> {{session('info-error')}}</p>
         @endif
         @if(session()->has('info-success'))
-            <p>{{session('info-success')}}</p>
+            <p class="text-green-500" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">{{session('info-success')}}</p>
         @endif
         <div>
             <label for="email">New Email</label>
-            <input type="email" name="email" placeholder="Enter Email" id="email" value="{{old('email')}}">
+            <input class="outline-none border p-2" type="email" name="email" placeholder="Enter Email" id="email" value="{{old('email')}}">
             @error('email')
-                <p><span>x</span> {{$message}}</p>
+                <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
         </div>
-        <button>Submit</button>
+        <button class="border rounded-sm p-2">Submit</button>
     </form>
 </div>
 <div>
@@ -32,23 +32,23 @@
         @method('PUT')
         <small>Edit Password</small>
         @if(session()->has('pass-error'))
-            <p><span>x</span> {{session('pass-error')}}</p>
+            <p class="text-red-400" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"><span>x</span> {{session('pass-error')}}</p>
         @endif
         @if(session()->has('pass-success'))
-            <p>{{session('pass-success')}}</p>
+            <p class="text-green-500" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">{{session('pass-success')}}</p>
         @endif
         <div>
             <label for="password">New Password</label>
-            <input type="password" name="password" placeholder="Enter password" id="password">
+            <input class="outline-none border p-2" type="password" name="password" placeholder="Enter password" id="password">
             @error('password')
-                <p><span>x</span> {{$message}}</p>
+                <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
         </div>
         <div>
             <label for="cpassword">Confirm Password</label>
-            <input type="password" name="password_confirmation" placeholder="Enter password again" id="cpassword">
+            <input class="outline-none border p-2" type="password" name="password_confirmation" placeholder="Enter password again" id="cpassword">
         </div>
-        <button>Submit</button>
+        <button class="border rounded-sm p-2">Submit</button>
     </form>
 </div>
 @endsection

@@ -16,7 +16,7 @@
             @foreach ($todos as $todo)
                 <div>
                     <p>{{$todo->title}}</p>
-                    <a href="{{route('todos.show', $todo)}}">show</a>
+                    <a class="hover:text-blue-400" href="{{route('todos.show', $todo)}}">show</a>
                 </div>
             @endforeach
         </div>
