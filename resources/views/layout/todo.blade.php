@@ -10,6 +10,8 @@
     <nav>
         <a href="{{route('todos.index')}}">Home</a>
         <a href="{{route('todos.create')}}">New Todo</a>
+        <a href="{{route('profil.index')}}">Profil</a>
+        <a href="{{route('profil.logout')}}">Logout</a>
     </nav>
     <section>
         @yield('content')

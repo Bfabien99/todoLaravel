@@ -33,6 +33,7 @@
         <div>
             <label for="cpassword">Password</label>
             <input type="password" name="password_confirmation" placeholder="Enter password again" id="cpassword">
-        </div><button>Submit</button>
+        </div>
+        <button>Submit</button>
     </form>
 @endsection

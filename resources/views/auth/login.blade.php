@@ -22,6 +22,7 @@
             @error('password')
                 <p><span>x</span> {{$message}}</p>
             @enderror
-        </div><button>Submit</button>
+        </div>
+        <button>Submit</button>
     </form>
 @endsection

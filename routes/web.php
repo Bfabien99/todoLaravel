@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,12 @@ Route::middleware('guest')->group(function(){
 
 # Création de route pour notre resource
 Route::resource('todos', TodoController::class)->middleware('auth');
+
+Route::middleware('auth')->group(function(){
+    Route::controller(ProfilController::class)->group(function(){
+        Route::get('/profil', 'index')->name('profil.index'); # page de connexion
+        Route::put('/profil/email', 'update_email')->name('profil.email.update'); # soumission des données
+        Route::put('/profil/pass', 'update_password')->name('profil.pass.update'); # page d'inscription
+        Route::get('/logout', 'logout')->name('profil.logout'); # page d'inscription
+    });
+});
