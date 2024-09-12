@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('detail')->nullable();
             $table->date('limit_date')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
