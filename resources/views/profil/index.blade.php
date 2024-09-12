@@ -17,7 +17,7 @@
             <p>{{session('info-success')}}</p>
         @endif
         <div>
-            <label for="email">Email</label>
+            <label for="email">New Email</label>
             <input type="email" name="email" placeholder="Enter Email" id="email" value="{{old('email')}}">
             @error('email')
                 <p><span>x</span> {{$message}}</p>
@@ -38,14 +38,14 @@
             <p>{{session('pass-success')}}</p>
         @endif
         <div>
-            <label for="password">Password</label>
+            <label for="password">New Password</label>
             <input type="password" name="password" placeholder="Enter password" id="password">
             @error('password')
                 <p><span>x</span> {{$message}}</p>
             @enderror
         </div>
         <div>
-            <label for="cpassword">Password</label>
+            <label for="cpassword">Confirm Password</label>
             <input type="password" name="password_confirmation" placeholder="Enter password again" id="cpassword">
         </div>
         <button>Submit</button>
