@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MailSender;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
@@ -34,6 +36,8 @@ class AuthController extends Controller
         ]);
 
         User::create($validate);
+
+        Mail::to($validate['email'])->send(new MailSender());
         return to_route('login')->with('success', 'Registered succesfuly... login now!');
     }
 }
