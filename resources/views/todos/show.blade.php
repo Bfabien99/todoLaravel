@@ -2,6 +2,14 @@
 @section('title') Details @endsection
 @section('content')
 <div>
+    <div>
+    @if(session()->has('error'))
+        <p><span>x</span> {{session('error')}}</p>
+        @endif
+        @if(session()->has('success'))
+        <p>{{session('success')}}</p>
+        @endif
+    </div>
     <h3>Detail</h3>
     <div>
         <p><span>Todo:</span> <span>{{$todo->title}}</span></p>

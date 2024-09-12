@@ -3,6 +3,14 @@
 @section('content')
 <div>
     <h3>Todos</h3>
+    <div>
+        @if(session()->has('error'))
+            <p><span>x</span> {{session('error')}}</p>
+        @endif
+        @if(session()->has('success'))
+            <p>{{session('success')}}</p>
+        @endif
+    </div>
     @if ($todos->count())
         <div>
             @foreach ($todos as $todo)
@@ -13,7 +21,7 @@
             @endforeach
         </div>
     @else
-        <p>Aucun Todo enregistrés</p>
+        <p>No todo available</p>
     @endif
 </div>
 @endsection
