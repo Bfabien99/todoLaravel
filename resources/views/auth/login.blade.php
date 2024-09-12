@@ -23,6 +23,7 @@
                 <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
         </div>
+        <a href="{{route('reset')}}" class="text-blue-400 hover:underline">Forget password ?</a>
         <button class="border rounded-sm p-2">Submit</button>
     </form>
 @endsection

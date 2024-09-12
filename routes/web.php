@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,13 @@ Route::middleware('guest')->group(function(){
         Route::get('/register', 'register')->name('register'); # page d'inscription
         Route::post('/register', 'handle_register')->name('register.post'); # soumission des données
     });
+
+    Route::controller(PasswordResetController::class)->group(function(){
+        Route::get('/reset', 'reset_request')->name('reset');
+        Route::post('/reset', 'handle_reset_request')->name('reset.post');
+        Route::get('/reset-validate', 'reset_validate')->name('reset.validate');
+        Route::put('/reset-validate', 'handle_reset_validate')->name('reset.validate.post');
+    });
 });
 
 # Création de route pour notre resource
@@ -20,9 +28,9 @@ Route::resource('todos', TodoController::class)->middleware('auth');
 
 Route::middleware('auth')->group(function(){
     Route::controller(ProfilController::class)->group(function(){
-        Route::get('/profil', 'index')->name('profil.index'); # page de connexion
-        Route::put('/profil/email', 'update_email')->name('profil.email.update'); # soumission des données
-        Route::put('/profil/pass', 'update_password')->name('profil.pass.update'); # page d'inscription
-        Route::get('/logout', 'logout')->name('profil.logout'); # page d'inscription
+        Route::get('/profil', 'index')->name('profil.index');
+        Route::put('/profil/email', 'update_email')->name('profil.email.update');
+        Route::put('/profil/pass', 'update_password')->name('profil.pass.update');
+        Route::get('/logout', 'logout')->name('profil.logout');
     });
 });

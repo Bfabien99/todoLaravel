@@ -31,6 +31,7 @@
             @error('limit_date')
                 <p class="text-red-400"><span class="font-medium">x</span> {{$message}}</p>
             @enderror
-        </div><button class="border rounded-sm p-2">Submit</button>
+        </div>
+        <button class="border rounded-sm p-2">Submit</button>
     </form>
 @endsection
