@@ -18,11 +18,8 @@ class AuthController extends Controller
             'email' => 'required|email|exists:users,email',
             'password' => 'required'
         ]);
-        if(Auth::attempt($validate)){
-            #$user = User::where('email', $validate['email'])->firstOrFail();
-            #Auth::login($user);
-            return to_route('todos.index');
-        }
+        if(Auth::attempt($validate)) return to_route('todos.index');
+        return back()->with('error', 'Invalid credentials...');
     }
 
     public function register(){
