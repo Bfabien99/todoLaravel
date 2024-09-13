@@ -1,41 +1,57 @@
 @extends('layout.todo')
 @section('title') Details @endsection
 @section('content')
-<div>
-    <div>
-    @if(session()->has('error'))
-        <p class="text-red-400" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"><span>x</span> {{session('error')}}</p>
+<div class="flex flex-col max-w-screen-lg mx-auto">
+    <div class="mx-auto">
+        @if(session()->has('error'))
+            <p class="text-white bg-red-400 p-1 w-fit rounded-sm" x-data="{ show: true }" x-show="show"
+                x-init="setTimeout(() => show = false, 2000)"><span>x</span> {{session('error')}}</p>
         @endif
         @if(session()->has('success'))
-        <p class="text-green-500" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">{{session('success')}}</p>
+            <p class="text-white bg-green-500 p-1 w-fit rounded-sm" x-data="{ show: true }" x-show="show"
+                x-init="setTimeout(() => show = false, 2000)">{{session('success')}}</p>
         @endif
     </div>
-    <h3>Detail</h3>
-    <div>
-        <p><span>Todo:</span> <span>{{$todo->title}}</span></p>
-        <p><span>Completed:</span> <span>{{$todo->completed ? 'Yes' : 'No'}}</span></p>
-        <p><span>Limit:</span> <span>{{$todo->limit_date ? $todo->limit_date : 'Not defined'}}</span></p>
-    </div>
-    <div>
-        <span>Detail: </span>
-        <cite>
-            {{$todo->detail}}
-        </cite>
-    </div>
-    <div>
-        <div>
+    <h3 class="text-center text-lg font-medium p-2">Detail</h3>
+    <div class="relative flex flex-col gap-2 p-4 bg-white shadow-sm @if ($todo->completed) shadow-green-200 @endif rounded-sm w-full max-w-[500px] mx-auto">
         @if ($todo->completed)
-        <a class="hover:text-blue-400" href="{{route('todos.undone', $todo)}}">Undone</a>
-        @else
-        <a class="hover:text-blue-400" href="{{route('todos.complete', $todo)}}">Complete</a>
+        <p class="absolute self-center top-[50%] text-green-500 font-bold text-8xl opacity-30">done</p>
         @endif
-        <a class="hover:text-blue-400" href="{{route('todos.edit', $todo)}}">Update</a>
+        <p class="flex justify-between gap-2"><span class="grow">Todo:</span> <span>{{$todo->title}}</span></p>
+        <p class="flex justify-between gap-2"><span class="grow">Completed:</span> <span>{{$todo->completed ? 'Yes' : 'No'}}</span></p>
+        <p class="flex justify-between gap-2"><span class="grow">Limit:</span> <span class="ml-2 {{$todo->limit_date && $todo->limit_date <= now()->format('Y-m-d') ? 'text-red-500 underline font-bold': 'text-blue-400'}}">{{$todo->limit_date ? $todo->limit_date : 'Not defined'}}</span></p>
+        <p class="flex justify-between gap-2">
+            <span class="grow">Detail:</span>
+            <span class="text-justify">
+                {{$todo->detail}}
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum repellendus, illo minima eaque consequatur voluptatum quaerat delectus mollitia. Rerum saepe laudantium quis asperiores, reprehenderit laborum placeat. Laborum architecto corrupti officiis nihil eius recusandae maiores exercitationem ducimus consequatur aliquid laudantium doloribus nesciunt officia nobis doloremque, facilis commodi ad eaque, similique pariatur eligendi. Veniam esse necessitatibus iure, vitae magni pariatur quisquam repudiandae molestias dolorem. Deleniti aut deserunt laborum officiis. Nihil expedita recusandae maxime a, quae voluptas fugit soluta sunt modi debitis eos mollitia vero porro aliquam doloribus illum dolores eius asperiores magni, enim tempora accusantium exercitationem eaque? Reiciendis voluptate saepe voluptatibus cupiditate?
+            </span>
+        </p>
+    </div>
+    <div class="flex flex-wrap gap-4 items-center p-4 bg-white shadow-sm rounded-sm w-full max-w-[500px] mx-auto">
+        <div class="flex gap-4">
+            @if ($todo->completed)
+                <a class="text-orange-400 font-medium border rounded-sm p-2 hover:text-white hover:bg-orange-400" href="{{route('todos.undone', $todo)}}">Undone</a>
+            @else
+                <a class="text-green-500 font-medium border rounded-sm p-2 hover:text-white hover:bg-green-500" href="{{route('todos.complete', $todo)}}">Complete</a>
+                <a class="text-blue-400 font-medium border rounded-sm p-2 hover:text-white hover:bg-blue-400" href="{{route('todos.edit', $todo)}}">Update</a>
+            @endif
         </div>
-        <form action="{{route('todos.destroy', $todo)}}" method="post">
+        <form action="{{route('todos.destroy', $todo)}}" method="post" id="actionForm">
             @csrf
             @method('DELETE')
-            <button class="border rounded-sm p-2">Delete</button>
+            <button class="border rounded-sm p-2 text-red-400">Delete</button>
         </form>
     </div>
 </div>
+@endsection
+@section('script')
+    <script>
+        document.getElementById('actionForm').addEventListener('submit', ()=>{
+            event.preventDefault();
+            if (confirm('You really want to delete this task? this action is irreversible')) {
+                event.currentTarget.submit();
+            }
+        })
+    </script>
 @endsection

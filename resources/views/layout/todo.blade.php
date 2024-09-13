@@ -8,15 +8,18 @@
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>
-<body>
-    <nav>
-        <a class="hover:text-blue-400" href="{{route('todos.index')}}">Home</a>
-        <a class="hover:text-blue-400" href="{{route('todos.create')}}">New Todo</a>
-        <a class="hover:text-blue-400" href="{{route('profil.index')}}">Profil</a>
-        <a class="hover:text-blue-400" href="{{route('profil.logout')}}">Logout</a>
+<body class="bg-gray-100">
+    <header class="bg-white p-4 shadow-sm">
+    <nav class="max-w-screen-xs flex items-center justify-evenly mx-auto font-medium">
+        <a class="hover:text-blue-400" href="{{route('todos.index')}}" class="">Home</a>
+        <a class="hover:text-blue-400" href="{{route('todos.create')}}" class="">New Todo</a>
+        <a class="hover:text-blue-400" href="{{route('profil.index')}}" class="">Profil</a>
+        <a class="hover:text-blue-400" href="{{route('profil.logout')}}" class="">Logout</a>
     </nav>
-    <section>
+    </header>
+    <section class="p-4 flex flex-col">
         @yield('content')
     </section>
+    @yield('script')
 </body>
 </html>
