@@ -23,7 +23,14 @@
         </cite>
     </div>
     <div>
+        <div>
+        @if ($todo->completed)
+        <a class="hover:text-blue-400" href="{{route('todos.undone', $todo)}}">Undone</a>
+        @else
+        <a class="hover:text-blue-400" href="{{route('todos.complete', $todo)}}">Complete</a>
+        @endif
         <a class="hover:text-blue-400" href="{{route('todos.edit', $todo)}}">Update</a>
+        </div>
         <form action="{{route('todos.destroy', $todo)}}" method="post">
             @csrf
             @method('DELETE')

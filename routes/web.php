@@ -40,4 +40,9 @@ Route::middleware('auth')->group(function(){
         Route::put('/profil/pass', 'update_password')->name('profil.pass.update');
         Route::get('/logout', 'logout')->name('profil.logout');
     });
+
+    Route::controller(TodoController::class)->group(function(){
+        Route::get('complete/{todo}', 'complete_todo')->name('todos.complete');
+        Route::get('undo/{todo}', 'undone_todo')->name('todos.undone');
+    });
 });

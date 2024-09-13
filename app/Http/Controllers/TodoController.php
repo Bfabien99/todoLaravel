@@ -122,4 +122,28 @@ class TodoController extends Controller
         Todo::destroy($id);
         return to_route('todos.index')->with('success', 'Todo deleted...');
     }
+
+    public function complete_todo(string $id)
+    {
+        # recupérer le todo en fonction de son id et vérifier qu'il appartien bien à l'user connecté
+        $todo = Todo::where(['user_id' => auth()->user()->id, 'id' => $id])->first();
+        
+        # si le todo n'existe pas, on le ramène à la liste des todos
+        if(!$todo) return to_route('todos.index');
+        $todo->completed = true;
+        $todo->update();
+        return back()->with('success', 'Todo marked as completed...');
+    }
+
+    public function undone_todo(string $id)
+    {
+        # recupérer le todo en fonction de son id et vérifier qu'il appartien bien à l'user connecté
+        $todo = Todo::where(['user_id' => auth()->user()->id, 'id' => $id])->first();
+        
+        # si le todo n'existe pas, on le ramène à la liste des todos
+        if(!$todo) return to_route('todos.index');
+        $todo->completed = false;
+        $todo->update();
+        return back()->with('success', 'Todo marked as not completed...');
+    }
 }
