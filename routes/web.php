@@ -6,11 +6,17 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
-# Limiter les routes aux personnes non connectés
+# Rediriger l'utilisateur
+Route::get('/', function(){
+    if(auth()->user()) return to_route('todos.index');
+    if(!auth()->user()) return to_route('login');
+})->name('home');
+
+# route ne nécessitant pas d'être authentifié
 Route::middleware('guest')->group(function(){
     Route::controller(AuthController::class)->group(function(){
-        Route::get('/', 'login')->name('login'); # page de connexion
-        Route::post('/', 'handle_login')->name('login.post'); # soumission des données
+        Route::get('/login', 'login')->name('login'); # page de connexion
+        Route::post('/login', 'handle_login')->name('login.post'); # soumission des données
         Route::get('/register', 'register')->name('register'); # page d'inscription
         Route::post('/register', 'handle_register')->name('register.post'); # soumission des données
     });
@@ -26,6 +32,7 @@ Route::middleware('guest')->group(function(){
 # Création de route pour notre resource
 Route::resource('todos', TodoController::class)->middleware('auth');
 
+# routes nécessitant la connexion
 Route::middleware('auth')->group(function(){
     Route::controller(ProfilController::class)->group(function(){
         Route::get('/profil', 'index')->name('profil.index');
