@@ -15,7 +15,7 @@
     <h3 class="text-center text-lg font-medium p-2">Detail</h3>
     <div class="relative flex flex-col gap-2 p-4 bg-white shadow-sm @if ($todo->completed) shadow-green-200 @endif rounded-sm w-full max-w-[500px] mx-auto">
         @if ($todo->completed)
-        <p class="absolute self-center top-[50%] text-green-500 font-bold text-8xl opacity-30">done</p>
+        <p class="absolute self-center top-[20%] text-green-500 font-bold text-8xl opacity-30">done</p>
         @endif
         <p class="flex justify-between gap-2"><span class="grow">Todo:</span> <span>{{$todo->title}}</span></p>
         <p class="flex justify-between gap-2"><span class="grow">Completed:</span> <span>{{$todo->completed ? 'Yes' : 'No'}}</span></p>
@@ -24,7 +24,6 @@
             <span class="grow">Detail:</span>
             <span class="text-justify">
                 {{$todo->detail}}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum repellendus, illo minima eaque consequatur voluptatum quaerat delectus mollitia. Rerum saepe laudantium quis asperiores, reprehenderit laborum placeat. Laborum architecto corrupti officiis nihil eius recusandae maiores exercitationem ducimus consequatur aliquid laudantium doloribus nesciunt officia nobis doloremque, facilis commodi ad eaque, similique pariatur eligendi. Veniam esse necessitatibus iure, vitae magni pariatur quisquam repudiandae molestias dolorem. Deleniti aut deserunt laborum officiis. Nihil expedita recusandae maxime a, quae voluptas fugit soluta sunt modi debitis eos mollitia vero porro aliquam doloribus illum dolores eius asperiores magni, enim tempora accusantium exercitationem eaque? Reiciendis voluptate saepe voluptatibus cupiditate?
             </span>
         </p>
     </div>
@@ -46,12 +45,25 @@
 </div>
 @endsection
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.getElementById('actionForm').addEventListener('submit', ()=>{
-            event.preventDefault();
-            if (confirm('You really want to delete this task? this action is irreversible')) {
-                event.currentTarget.submit();
-            }
-        })
+        document.getElementById('actionForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    Swal.fire({
+        title: "Do you really want to delete this ToDo?",
+        icon: "question",
+        iconHtml: "?",
+        confirmButtonText: "Delete",
+        cancelButtonText: "Cancel",
+        showCancelButton: true,
+        showCloseButton: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            event.target.submit();
+        }
+    });
+});
+
     </script>
 @endsection
