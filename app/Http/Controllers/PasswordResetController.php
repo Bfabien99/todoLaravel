@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PasswordReset;
+use App\Mail\PasswordUpdateNotification;
 use App\Models\PasswordResetModel;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class PasswordResetController extends Controller
         $verif_user->update();
 
         PasswordResetModel::where('email', $is_token->email)->delete();
-        // Mail::to($verif_user->email)->send(new PasswordReset(route('reset.validate', ['token' => $token]), $verif_user));
+        Mail::to($verif_user->email)->send(new PasswordUpdateNotification($verif_user));
         return to_route('login')->with('success', 'Password updated...');
     }
 }
